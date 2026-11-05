@@ -1752,6 +1752,7 @@ GameObject:
   - component: {fileID: 1303786434}
   - component: {fileID: 1303786433}
   - component: {fileID: 1303786432}
+  - component: {fileID: 1303786437}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1929,6 +1930,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303786437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303786431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e74e9e5e09664388841121123a658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWalk
+  inputActions: {fileID: -944628639613478452, guid: 9a701904224b03a46b768ff605aa1586, type: 3}
+  walkSpeed: 6
 --- !u!1 &1880936803
 GameObject:
   m_ObjectHideFlags: 0
