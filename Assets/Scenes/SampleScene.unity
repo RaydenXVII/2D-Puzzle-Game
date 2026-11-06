@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 719589705}
   - component: {fileID: 719589704}
   - component: {fileID: 719589703}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1822,7 +1822,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 66c224f6e3ec8af45b4df29ec02ea7b0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1944,6 +1944,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWalk
   inputActions: {fileID: -944628639613478452, guid: 9a701904224b03a46b768ff605aa1586, type: 3}
   walkSpeed: 6
+  baseGravity: 3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckDistance: 0.05
 --- !u!1 &1880936803
 GameObject:
   m_ObjectHideFlags: 0
