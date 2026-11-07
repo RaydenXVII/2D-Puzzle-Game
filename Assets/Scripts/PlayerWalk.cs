@@ -11,7 +11,7 @@ public class PlayerWalk : MonoBehaviour
     [SerializeField] private float baseGravity = 3f;
 
     [Header("Ground Check")]
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private string groundTag = "Ground";
     [SerializeField] private float groundCheckDistance = 0.05f;
 
     private InputAction m_moveAction;
@@ -19,8 +19,8 @@ public class PlayerWalk : MonoBehaviour
     private Rigidbody2D m_rb;
     private Collider2D m_collider;
     private SpriteRenderer m_sprite;
-    private ContactFilter2D m_groundFilter;
-    private readonly RaycastHit2D[] m_hits = new RaycastHit2D[4];
+    private ContactFilter2D m_castFilter;
+    private readonly RaycastHit2D[] m_hits = new RaycastHit2D[8];
 
     private float m_moveX;
     private bool m_flipPressed;
@@ -45,9 +45,9 @@ public class PlayerWalk : MonoBehaviour
 
         m_rb.gravityScale = baseGravity;
 
-        m_groundFilter = new ContactFilter2D();
-        m_groundFilter.SetLayerMask(groundLayer);
-        m_groundFilter.useLayerMask = true;
+        m_castFilter = new ContactFilter2D();
+        m_castFilter.useLayerMask = false;
+        m_castFilter.useTriggers = false;
     }
 
     private void OnEnable()
@@ -88,11 +88,13 @@ public class PlayerWalk : MonoBehaviour
     private bool IsGrounded()
     {
         Vector2 gravityDir = GravityDirection;
-        int count = m_collider.Cast(gravityDir, m_groundFilter, m_hits, groundCheckDistance);
+        int count = m_collider.Cast(gravityDir, m_castFilter, m_hits, groundCheckDistance);
 
         for (int i = 0; i < count; i++)
         {
-            if (Vector2.Dot(m_hits[i].normal, -gravityDir) > 0.5f)
+            // Hanya hitung objek ber-tag Ground, dan hanya permukaan yang menghadap melawan gravitasi
+            if (m_hits[i].collider.CompareTag(groundTag) &&
+                Vector2.Dot(m_hits[i].normal, -gravityDir) > 0.5f)
                 return true;
         }
         return false;
