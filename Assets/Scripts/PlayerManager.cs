@@ -43,8 +43,12 @@ public class PlayerManager : MonoBehaviour
     private bool m_flipPressed;
     private bool m_gravityFlipped;
     private bool m_isDead;
+    private bool m_isFrozen;
 
     private Vector2 GravityDirection => m_gravityFlipped ? Vector2.up : Vector2.down;
+
+    // Pemain tidak bisa dikendalikan kalau sudah mati atau dibekukan
+    private bool IsInactive => m_isDead || m_isFrozen;
 
     private void Awake()
     {
@@ -86,7 +90,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (m_isDead) return;
+        if (IsInactive) return;
 
         m_moveX = m_moveAction.ReadValue<Vector2>().x;
 
@@ -101,7 +105,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_isDead) return;
+        if (IsInactive) return;
 
         m_rb.linearVelocity = new Vector2(m_moveX * walkSpeed, m_rb.linearVelocity.y);
 
@@ -150,18 +154,30 @@ public class PlayerManager : MonoBehaviour
 
     private void BounceOffWall()
     {
-        if (m_isDead) return;
+        if (IsInactive) return;
 
-        // Cegah dua flip beruntun dari satu sentuhan (flip dua kali = kembali ke arah semula)
+        // Cegah dua flip beruntun dari satu sentuhan
         if (Time.time - m_lastBounceTime < bounceCooldown) return;
         m_lastBounceTime = Time.time;
 
         FlipGravity();
     }
 
+    // Dipanggil oleh Goal: hentikan pemain di tempat
+    public void Freeze()
+    {
+        if (m_isDead || m_isFrozen) return;
+        m_isFrozen = true;
+
+        m_moveX = 0f;
+        m_flipPressed = false;
+        m_rb.linearVelocity = Vector2.zero;
+        m_rb.simulated = false;
+    }
+
     private void Die()
     {
-        if (m_isDead) return;
+        if (IsInactive) return;   // pemain yang sudah menang tidak bisa mati
         m_isDead = true;
         StartCoroutine(DeathRoutine());
     }
