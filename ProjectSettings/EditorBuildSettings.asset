@@ -14,5 +14,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/First Stage.unity
     guid: 2831a68b867d06e4d8706f189d81c44d
+  - enabled: 1
+    path: Assets/Scenes/Second Stage.unity
+    guid: 0ee5feef77ab53b4bbc74c4b1327c20c
+  - enabled: 1
+    path: Assets/Scenes/Third Stage.unity
+    guid: 0a0e026249d0ab64e934998b96ca3dfe
+  - enabled: 1
+    path: Assets/Scenes/Fourth Stage.unity
+    guid: 72c7afcc277deeb4b8ced392242c98e4
+  - enabled: 1
+    path: Assets/Scenes/Fifth Stage.unity
+    guid: 51b3cbfb2f968684697b704af52d5696
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 9a701904224b03a46b768ff605aa1586, type: 3}
