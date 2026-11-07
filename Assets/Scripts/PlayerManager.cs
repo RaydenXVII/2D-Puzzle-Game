@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerWalk : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [Header("Input")]
     [SerializeField] private InputActionAsset inputActions;
@@ -105,5 +105,13 @@ public class PlayerWalk : MonoBehaviour
         m_gravityFlipped = !m_gravityFlipped;
         m_rb.gravityScale = m_gravityFlipped ? -baseGravity : baseGravity;
         m_sprite.flipY = m_gravityFlipped;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Trap")
+        {
+            Debug.Log("Trap!!!");
+        }
     }
 }
