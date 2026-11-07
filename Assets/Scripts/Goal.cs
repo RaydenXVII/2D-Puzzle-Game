@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private GameManager gameManager;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("Goal!!!");
-        }
+        if (other.CompareTag("Player"))
+            gameManager.GameClear();
     }
 }
