@@ -129,7 +129,7 @@ public class GameMenus : MonoBehaviour
     // Pastikan tepat satu EventSystem agar tombol bisa diklik
     private void EnsureEventSystem()
     {
-        EventSystem[] systems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
+        EventSystem[] systems = FindObjectsByType<EventSystem>();
 
         bool hasOther = false;
         foreach (EventSystem s in systems)

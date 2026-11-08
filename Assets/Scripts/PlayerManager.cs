@@ -102,7 +102,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (IsInactive) return;
+        if (IsInactive || Time.timeScale == 0f) return;
 
         m_moveX = m_moveAction.ReadValue<Vector2>().x;
 
