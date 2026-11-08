@@ -8940,6 +8940,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5015846076603933462, guid: 739c13e74dc0ae44eb566654d0ed4018, type: 3}
+      propertyPath: unlockSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 43c12123dd6d9894aac62a411281bd95, type: 3}
+    - target: {fileID: 5015846076603933462, guid: 739c13e74dc0ae44eb566654d0ed4018, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1397690798}

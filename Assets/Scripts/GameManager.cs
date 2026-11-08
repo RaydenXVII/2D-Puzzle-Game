@@ -39,15 +39,13 @@ public class GameManager : MonoBehaviour
 
     public void GameClear()
     {
-        GameSession.Finish();   // hentikan timer di stage terakhir
-
-        if (clearText != null)
-            clearText.SetActive(true);
+        GameSession.Finish();   // hentikan timer
+        GameMenus.ShowClear();  // tampilkan layar Game Clear
     }
 
     public void GoToMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(0);
     }
 
     private IEnumerator LoadSceneAfterDelay(int buildIndex)

@@ -106,6 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34cb373b88e384f489e3bae628667824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyPickup
+  goal: {fileID: 0}
+  pickupSfx: {fileID: 8300000, guid: d30e5efad470c7249a8a40b6f69cc70a, type: 3}
+  volume: 0.8
+  bobHeight: 0.15
+  bobSpeed: 3
 --- !u!58 &5156272373800410146
 CircleCollider2D:
   m_ObjectHideFlags: 0
