@@ -11,23 +11,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Pastikan teks Game Clear tersembunyi saat stage dimulai
         if (clearText != null)
             clearText.SetActive(false);
     }
 
     public void GameOver()
     {
-        // Kalau stage sudah selesai, abaikan (misalnya pemain menyentuh duri saat jeda pindah stage)
         if (m_levelEnded) return;
 
+        GameSession.Deaths++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Dipanggil oleh Goal
     public void LevelComplete()
     {
-        if (m_levelEnded) return;   // cegah terpanggil dua kali
+        if (m_levelEnded) return;
         m_levelEnded = true;
 
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
@@ -35,11 +34,13 @@ public class GameManager : MonoBehaviour
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
             StartCoroutine(LoadSceneAfterDelay(nextIndex));
         else
-            GameClear();   // tidak ada scene berikutnya: ini stage terakhir
+            GameClear();
     }
 
     public void GameClear()
     {
+        GameSession.Finish();   // hentikan timer di stage terakhir
+
         if (clearText != null)
             clearText.SetActive(true);
     }
