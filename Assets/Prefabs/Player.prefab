@@ -216,3 +216,7 @@ MonoBehaviour:
   blinkInterval: 0.1
   blinkColor: {r: 1, g: 0, b: 0, a: 1}
   delayBeforeRestart: 0.5
+  flipSfx: {fileID: 8300000, guid: 063b72dc78d53234eae27ac004bb0129, type: 3}
+  deathSfx: {fileID: 8300000, guid: 2f025c74a75c06241b31b89345e448a5, type: 3}
+  flipVolume: 0.25
+  pitchVariation: 0.05

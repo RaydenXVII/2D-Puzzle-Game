@@ -29,11 +29,18 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Color blinkColor = Color.red;
     [SerializeField] private float delayBeforeRestart = 0.5f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip flipSfx;
+    [SerializeField] private AudioClip deathSfx;
+    [SerializeField, Range(0f, 1f)] private float flipVolume = 0.8f;
+    [SerializeField, Range(0f, 0.3f)] private float pitchVariation = 0.05f;
+
     private InputAction m_moveAction;
     private InputAction m_flipAction;
     private Rigidbody2D m_rb;
     private Collider2D m_collider;
     private SpriteRenderer m_sprite;
+    private AudioSource m_audio;
     private ContactFilter2D m_castFilter;
     private readonly RaycastHit2D[] m_hits = new RaycastHit2D[8];
 
@@ -46,8 +53,6 @@ public class PlayerManager : MonoBehaviour
     private bool m_isFrozen;
 
     private Vector2 GravityDirection => m_gravityFlipped ? Vector2.up : Vector2.down;
-
-    // Pemain tidak bisa dikendalikan kalau sudah mati atau dibekukan
     private bool IsInactive => m_isDead || m_isFrozen;
 
     private void Awake()
@@ -67,6 +72,13 @@ public class PlayerManager : MonoBehaviour
 
         if (gameManager == null)
             Debug.LogWarning("PlayerManager: GameManager belum diisi di Inspector.", this);
+
+        // Pakai AudioSource yang sudah ada, atau buat otomatis
+        m_audio = GetComponent<AudioSource>();
+        if (m_audio == null)
+            m_audio = gameObject.AddComponent<AudioSource>();
+        m_audio.playOnAwake = false;
+        m_audio.spatialBlend = 0f;   // suara 2D, volume tidak tergantung jarak ke kamera
 
         m_originalColor = m_sprite.color;
         m_rb.gravityScale = baseGravity;
@@ -124,11 +136,13 @@ public class PlayerManager : MonoBehaviour
             BounceOffWall();
     }
 
-    // Trap yang berupa trigger
+    // Trap yang berupa trigger, dan bounce bar
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(trapTag))
             Die();
+        else if (other.CompareTag(bounceTag))
+            BounceOffWall();
     }
 
     private bool IsGrounded()
@@ -150,20 +164,28 @@ public class PlayerManager : MonoBehaviour
         m_gravityFlipped = !m_gravityFlipped;
         m_rb.gravityScale = m_gravityFlipped ? -baseGravity : baseGravity;
         m_sprite.flipY = m_gravityFlipped;
+
+        PlayFlipSfx();
+    }
+
+    private void PlayFlipSfx()
+    {
+        if (flipSfx == null) return;
+
+        m_audio.pitch = 1f + Random.Range(-pitchVariation, pitchVariation);
+        m_audio.PlayOneShot(flipSfx, flipVolume);
     }
 
     private void BounceOffWall()
     {
         if (IsInactive) return;
 
-        // Cegah dua flip beruntun dari satu sentuhan
         if (Time.time - m_lastBounceTime < bounceCooldown) return;
         m_lastBounceTime = Time.time;
 
         FlipGravity();
     }
 
-    // Dipanggil oleh Goal: hentikan pemain di tempat
     public void Freeze()
     {
         if (m_isDead || m_isFrozen) return;
@@ -177,8 +199,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Die()
     {
-        if (IsInactive) return;   // pemain yang sudah menang tidak bisa mati
+        if (IsInactive) return;
         m_isDead = true;
+
+        if (deathSfx != null)
+            m_audio.PlayOneShot(deathSfx, flipVolume);
+
         StartCoroutine(DeathRoutine());
     }
 
