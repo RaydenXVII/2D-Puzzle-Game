@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
         if (m_audio == null)
             m_audio = gameObject.AddComponent<AudioSource>();
         m_audio.playOnAwake = false;
-        m_audio.spatialBlend = 0f;   // suara 2D, volume tidak tergantung jarak ke kamera
+        m_audio.spatialBlend = 0f;  
 
         m_originalColor = m_sprite.color;
         m_rb.gravityScale = baseGravity;

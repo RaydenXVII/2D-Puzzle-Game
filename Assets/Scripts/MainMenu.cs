@@ -14,10 +14,10 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit Game");   // di Editor tidak menutup apa-apa, jadi log ini untuk bukti tombolnya bekerja
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 }

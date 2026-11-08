@@ -78,7 +78,7 @@ public class GameMenus : MonoBehaviour
 
     private void Update()
     {
-        // Menu pause hanya untuk stage, bukan Main Menu (build index 0)
+        // Menu pause hanya untuk stage, bukan Main Menu
         if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
         Keyboard kb = Keyboard.current;
@@ -126,7 +126,7 @@ public class GameMenus : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    // Pastikan tepat satu EventSystem agar tombol bisa diklik
+    // Memastikan tepat satu EventSystem agar tombol bisa diklik
     private void EnsureEventSystem()
     {
         EventSystem[] systems = FindObjectsByType<EventSystem>();
