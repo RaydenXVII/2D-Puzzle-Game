@@ -95,12 +95,9 @@ Assets/
 
 All assets used are free to use. Sound sources are listed here:
 
-| Asset | Source | License |
-|---|---|---|
-| Flip sound effect | (fill in) | (fill in) |
-| Death sound effect | (fill in) | (fill in) |
-| Key pickup / unlock sound effects | (fill in) | (fill in) |
-| Background music | (fill in) | (fill in) |
+Based on the tutorial series "VVVVVV-style 2D action game in Unity"
+by Jonny_dayo (https://www.youtube.com/@Jonny_dayo).
+Sprites and tiles are from that series.
 
 ## Expansion ideas
 
